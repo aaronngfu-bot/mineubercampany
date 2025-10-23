@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>香港公司結構比較圖表</title>
+  <style>
+    body {
+      font-family: "Noto Sans HK", "Microsoft JhengHei", sans-serif;
+      background: #f8fafc;
+      margin: 0;
+      padding: 20px;
+      color: #333;
+    }
+
+    h1 {
+      text-align: center;
+      color: #004d99;
+      margin-bottom: 5px;
+    }
+
+    p.subtitle {
+      text-align: center;
+      color: #666;
+      margin-bottom: 30px;
+    }
+
+    /* ===== 圖標摘要比較表 ===== */
+    .summary-table {
+      width: 100%;
+      max-width: 1100px;
+      margin: 20px auto;
+      border-collapse: collapse;
+      background: #fff;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+    }
+
+    .summary-table th, .summary-table td {
+      padding: 12px 8px;
+      text-align: center;
+      border-bottom: 1px solid #eee;
+    }
+
+    .summary-table th {
+      background: #004d99;
+      color: white;
+    }
+
+    .summary-table tr:nth-child(even) {
+      background: #f9fcff;
+    }
+
+    .summary-table td.icon {
+      font-size: 1.2em;
+    }
+
+    .legend {
+      max-width: 1100px;
+      margin: 10px auto 30px;
+      text-align: right;
+      color: #777;
+      font-size: 0.9em;
+    }
+
+    .legend span { margin-left: 10px; }
+    .legend .yes::before { content: "✅"; margin-right: 4px; }
+    .legend .no::before { content: "❌"; margin-right: 4px; }
+    .legend .partial::before { content: "⚠️"; margin-right: 4px; }
+
+    /* ===== Tabs ===== */
+    .comparison-container {
+      max-width: 1100px;
+      margin: auto;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+      overflow: hidden;
+    }
+
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      background: #004d99;
+      color: white;
+      cursor: pointer;
+    }
+
+    .tab {
+      flex: 1;
+      padding: 15px;
+      text-align: center;
+      min-width: 150px;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .tab:hover {
+      background: #0066cc;
+    }
+
+    .tab.active {
+      background: #007acc;
+    }
+
+    .tab-content {
+      display: none;
+      animation: fade 0.5s ease-in-out;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    @keyframes fade {
+      from {opacity: 0; transform: translateY(10px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    table.detail {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    table.detail th, table.detail td {
+      padding: 15px;
+      text-align: left;
+      border-bottom: 1px solid #eee;
+    }
+
+    table.detail th {
+      background: #f4f7fb;
+      color: #004d99;
+    }
+
+    tr:hover {
+      background: #f9fcff;
+    }
+
+    @media(max-width: 700px){
+      table.detail, thead, tbody, th, td, tr {
+        display: block;
+      }
+
+      th {display: none;}
+      td {
+        padding: 10px;
+        border-bottom: 1px solid #e2e2e2;
+      }
+      td::before {
+        content: attr(data-label);
+        font-weight: bold;
+        display: block;
+        margin-bottom: 5px;
+        color: #007acc;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>香港主要公司及合夥類型比較</h1>
+  <p class="subtitle">了解不同結構在法律地位、風險、稅務及管理上的差異</p>
+
+  <!-- 概覽摘要表 -->
+  <table class="summary-table">
+    <thead>
+      <tr>
+        <th>比較項目</th>
+        <th>有限公司</th>
+        <th>無限公司</th>
+        <th>一般合夥</th>
+        <th>有限合夥</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>獨立法人</td>
+        <td class="icon">✅</td>
+        <td class="icon">❌</td>
+        <td class="icon">❌</td>
+        <td class="icon">❌</td>
+      </tr>
+      <tr>
+        <td>有限責任</td>
+        <td class="icon">✅</td>
+        <td class="icon">❌</td>
+        <td class="icon">❌</td>
+        <td class="icon">⚠️（限於部分合夥人）</td>
+      </tr>
+      <tr>
+        <td>管理靈活度</td>
+        <td class="icon">⚠️（受法規限制）</td>
+        <td class="icon">✅</td>
+        <td class="icon">✅</td>
+        <td class="icon">⚠️（有限合夥人無管理權）</td>
+      </tr>
+      <tr>
+        <td>籌資能力</td>
+        <td class="icon">✅ （可發行股份）</td>
+        <td class="icon">❌</td>
+        <td class="icon">⚠️</td>
+        <td class="icon">⚠️</td>
+      </tr>
+      <tr>
+        <td>風險承擔</td>
+        <td class="icon">低</td>
+        <td class="icon">高</td>
+        <td class="icon">高（連帶責任）</td>
+        <td class="icon">中（有限合夥人受保護）</td>
+      </tr>
+      <tr>
+        <td>稅務形式</td>
+        <td class="icon">公司利得稅</td>
+        <td class="icon">個人入息稅</td>
+        <td class="icon">個人入息稅（依分配）</td>
+        <td class="icon">個人入息稅（依分配）</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="legend">
+    <span class="yes">具備或有優勢</span>
+    <span class="partial">部分適用／有限制</span>
+    <span class="no">不適用／風險高</span>
+  </div>
+
+  <!-- 互動式詳細內容 -->
+  <div class="comparison-container">
+    <div class="tabs">
+      <div class="tab active" data-tab="limited">有限公司</div>
+      <div class="tab" data-tab="unlimited">無限公司</div>
+      <div class="tab" data-tab="general">一般合夥</div>
+      <div class="tab" data-tab="limitedp">有限合夥</div>
+    </div>
+
+    <!-- 有限公司 -->
+    <div id="limited" class="tab-content active">
+      <table class="detail">
+        <thead><tr><th>項目</th><th>內容</th></tr></thead>
+        <tbody>
+          <tr><td data-label="法律地位">法律地位</td><td>具獨立法人身份，股東與公司分離。</td></tr>
+          <tr><td data-label="責任">責任</td><td>股東只需承擔投入資金範圍以內的責任（有限責任）。</td></tr>
+          <tr><td data-label="稅務">稅務</td><td>繳交公司利得稅（8.25% / 16.5%）。</td></tr>
+          <tr><td data-label="成立程序">成立程序</td><td>必須向公司註冊處註冊，提交公司章程、董事名單與周年報告。</td></tr>
+          <tr><td data-label="適合對象">適合對象</td><td>需要明確責任分離與強籌資能力的中大型企業。</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 無限公司 -->
+    <div id="unlimited" class="tab-content">
+      <table class="detail">
+        <thead><tr><th>項目</th><th>內容</th></tr></thead>
+        <tbody>
+          <tr><td data-label="法律地位">法律地位</td><td>與東主為同一實體，非獨立法人。</td></tr>
+          <tr><td data-label="責任">責任</td><td>東主承擔所有業務債務與風險（無限責任）。</td></tr>
+          <tr><td data-label="稅務">稅務</td><td>以個人入息稅課稅（最高17%）。</td></tr>
+          <tr><td data-label="成立程序">成立程序</td><td>只需於商業登記署登記，程序快速。</td></tr>
+          <tr><td data-label="適合對象">適合對象</td><td>個體戶、小型業務、自僱人士。</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 一般合夥 -->
+    <div id="general" class="tab-content">
+      <table class="detail">
+        <thead><tr><th>項目</th><th>內容</th></tr></thead>
+        <tbody>
+          <tr><td data-label="法律地位">法律地位</td><td>非法人實體，由兩名或以上人士共同經營。</td></tr>
+          <tr><td data-label="責任">責任</td><td>所有合夥人對業務債務負**無限連帶責任**。</td></tr>
+          <tr><td data-label="管理權">管理權</td><td>所有合夥人可參與決策與管理。</td></tr>
+          <tr><td data-label="稅務">稅務</td><td>合夥利潤分配後，各人按個人入息稅繳稅。</td></tr>
+          <tr><td data-label="常見用途">常見用途</td><td>專業事務所、家族合作業務、小規模專案。</td></tr>
+          <tr><td data-label="風險特性">風險特性</td><td>風險高，若其中一人負債，全體需承擔。</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 有限合夥 -->
+    <div id="limitedp" class="tab-content">
+      <table class="detail">
+        <thead><tr><th>項目</th><th>內容</th></tr></thead>
+        <tbody>
+          <tr><td data-label="法律地位">法律地位</td><td>依《有限合夥條例》（Cap.37），必須有普通與有限合夥人。</td></tr>
+          <tr><td data-label="責任">責任</td><td>普通合夥人：無限責任；有限合夥人：出資以內有限責任。</td></tr>
+          <tr><td data-label="管理權">管理權</td><td>普通合夥人負責日常經營；有限合夥人僅可作投資。</td></tr>
+          <tr><td data-label="稅務">稅務</td><td>合夥層面不課稅，各合夥人按所得比例繳稅。</td></tr>
+          <tr><td data-label="常見用途">常見用途</td><td>基金管理、私募股權投資、風險投資架構。</td></tr>
+          <tr><td data-label="風險特性">風險特性</td><td>有限合夥人風險受限，但無日常掌控權。</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    const tabs = document.querySelectorAll(".tab");
+    const tabContents = document.querySelectorAll(".tab-content");
+
+    tabs.forEach(tab => {
+      tab.addEventListener("click", (e) => {
+        tabs.forEach(t => t.classList.remove("active"));
+        tabContents.forEach(c => c.classList.remove("active"));
+
+        tab.classList.add("active");
+        const target = document.getElementById(tab.getAttribute("data-tab"));
+        target.classList.add("active");
+      });
+    });
+  </script>
+</body>
+</html>
